@@ -1,14 +1,21 @@
+import express from "express";
+import { createServer } from "http";
 import { Server } from "socket.io";
-import cors from "cors";
-const io = new Server(5000,{ 
-    cors:{
-        origin:true,
-    }
-});
+
+const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {  cors:{
+    origin:true,
+}});
+
 
 
 const EmailToSocketIdMap = new Map() ;
 const SocketIdToEmailMap = new Map() ;
+
+app.get('/',(req,res)=>{
+    res.send('Hello this is with Express');
+})
 
 io.on("connection", (socket) => {
     console.log('User Got connected',socket.id);
@@ -40,3 +47,4 @@ io.on("connection", (socket) => {
 
 });
 
+httpServer.listen(5000);
