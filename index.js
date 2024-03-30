@@ -1,5 +1,4 @@
 import { Server } from "socket.io";
-import cors from "cors";
 const io = new Server(5000,{ 
     cors:{
         origin:true,
